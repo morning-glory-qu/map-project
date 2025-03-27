@@ -50,47 +50,37 @@
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
 }
-
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
 }
-.leaflet-control-zoom {
-  bottom:15px;
-}
-.leaflet-control-scale {
-  right: 45px;
-  bottom: 45px;
-}
-
-
 .leaflet-control-scale .leaflet-control-scale-line {
-  color: rgba(255, 255, 255, 0.8);
-  background-color: transparent;
+  color: #ffffff;
+  background: none;
   text-shadow: none;
-  text-align: center;
-  border-color: rgba(255, 255, 255, 0.8);
+  border-color: #ffffff;
   border-left: none;
   border-right: none;
-
+  text-align: center;
 }
-
-.leaflet-control-scale .leaflet-control-scale-line::before,
+.leaflet-control-scale .leaflet-control-scale-line::before {
+  content: "";
+  border-left: 2px solid #fff;
+  height: 8px;
+  left: 0;
+  bottom: 0;
+  position: absolute;
+}
 .leaflet-control-scale .leaflet-control-scale-line::after {
   content: "";
-  border-left: 2px solid rgba(255,255,255,0.8);
-  height: 50%;
-  position: absolute;
-  bottom: 2px;
-}
-
-.leaflet-control-scale .leaflet-control-scale-line::before {
-  left: 0;
-}
-
-.leaflet-control-scale .leaflet-control-scale-line::after {
+  border-left: 2px solid #fff;
+  height: 8px;
   right: 0;
+  bottom: 0;
+  position: absolute;
+}
+.leaflet-bottom .leaflet-control-scale {
+  right: 45px;
+  bottom: 31px;
 }
 
 .dark {
