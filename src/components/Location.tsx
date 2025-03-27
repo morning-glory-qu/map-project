@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import L from "leaflet";
 import store from "../store/index.ts";
 import { observer } from "mobx-react-lite";
