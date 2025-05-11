@@ -1,18 +1,16 @@
-import leaflet from "leaflet";
+import L from "leaflet";
 import { makeAutoObservable } from "mobx";
-
-class APP {
-    private name = "遥感可视化";
-    map !: leaflet.Map;
-    constructor() {
-        makeAutoObservable(this);
-    }
-    setName = (name: string) =>{
-        this.name = name;
-    };
-
-    setMap = (map: leaflet.Map) =>{
-        this.map = map;
-    };
+class App {
+  name = "遥感可视化";
+  map!: L.Map;
+  constructor() {
+    makeAutoObservable(this);
+  }
+  setName = (name: string) => {
+    this.name = name;
+  };
+  setMap = (map: L.Map) => {
+    this.map = map;
+  };
 }
-export default new APP();
+export default new App();
