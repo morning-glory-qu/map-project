@@ -1,26 +1,37 @@
 import  { useEffect, useState } from "react";
-import L from "leaflet";
 import store from "../store/index.ts";
 import { observer } from "mobx-react-lite";
+import * as Cesium from "cesium";
 
 const Location = observer(() => {
   const map = store.map;
-  const [postion, setPostion] = useState<string>("");
+  const [postion, setPostion] = useState<string | null>(null);
+
   useEffect(() => {
-    map.on("mousemove", updatePostion);
-    return () => {
-      map.off("mousemove", updatePostion);
-    };
+    const handler = new Cesium.ScreenSpaceEventHandler;
+    handler.setInputAction((movement: any) => {
+      const onmap = map.camera.pickEllipsoid(
+        movement.endPosition,
+        map.scene.ellipsoid
+      )
+      if (onmap) {
+        const cartographic = Cesium.Cartographic.fromCartesian(onmap);
+        const longitude = Cesium.Math.toDegrees(cartographic.longitude);
+        const latitude = Cesium.Math.toDegrees(cartographic.latitude);
+        setPostion(`经度：${longitude}°  纬度：${latitude}°`);
+      } else {
+        setPostion(null);
+      }
+    }, Cesium.ScreenSpaceEventType.MOUSE_MOVE
+    );
   }, [map]);
 
-  const updatePostion = (evt: L.LeafletMouseEvent) => {
-    setPostion(evt.latlng.toString());
-  };
-  return (
-    <div className="absolute z-20 text-white bottom-0.5 text-sm right-0.5 py-2 px-4">
+  return postion && (
+    // 居中
+    <div className="text-white text-sm absolute bottom-0 right-0 p-2 z-20">
       {postion}
     </div>
-  );
+  )
 });
 
 export default Location;
